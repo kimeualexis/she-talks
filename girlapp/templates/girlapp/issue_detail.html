@@ -1,0 +1,58 @@
+{% extends 'girlapp/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}<title>SheTalks</title>{% endblock %}
+
+{% block body %}
+        <article class="media content-section">
+        <img class="rounded-circle article-img" src="" alt="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'girlapp:user-issues' issue.user.username %}">{{ issue.user }}</a>
+              <small class="text-muted">{{ issue.created|date:"F d, Y" }}</small>
+                {% if issue.user == user %}
+                    <div class="">
+                    <a class="btn btn-secondary btn-sn mt-1 mb-1" href="{% url 'girlapp:issue-update' pk=issue.pk %}">Update</a>
+                    <a class="btn btn-danger btn-sn mt-1 mb-1" href="{% url 'girlapp:issue-delete' issue.id %}">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ issue.title }}</h2>
+            <p class="article-content">{{ issue.content }}</p>
+
+
+          {% if issue.comment_set %}
+              <div class="article-metadata">
+              <h5 class="text-secondary text-outline-info">Comments: {{ issue.comment_set.count }}</h5>
+          </div>
+              {% for i in issue.comment_set.all %}
+                  <p>{{ i.comment }} - <a class="mr-2" href="">{{ i.user }}</a></p>
+
+                  {% if issue.user == user %}
+                    <div class="">
+                    <a class="btn btn-secondary btn-sn mt-1 mb-1" href="{% url 'girlapp:comment-update' issue.id %}">Update</a>
+                    <a class="btn btn-danger btn-sn mt-1 mb-1" href="">Delete</a>
+                    </div>
+                {% endif %}
+
+              {% endfor %}
+              <hr>
+          {% endif %}
+
+
+          <br><br>
+    <form method="POST" action="{% url 'girlapp:issue-detail' issue.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4"><b>Your Comment</b></legend>
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-info">Submit</button>
+    </div>
+</form>
+          </div>
+
+
+        </article>
+
+{% endblock %}
