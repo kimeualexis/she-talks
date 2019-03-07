@@ -3,8 +3,11 @@
 {% block title %}<title>SheTalks</title>{% endblock %}
 
 {% block body %}
+    <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
         <article class="media content-section">
-        <img class="rounded-circle article-img" src="" alt="">
+        <img class="rounded-circle article-img" src="{{ issue.user.profile.image.url }}" alt="">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'girlapp:user-issues' issue.user.username %}">{{ issue.user }}</a>
@@ -54,5 +57,7 @@
 
 
         </article>
+    </div>
+    </div>
 
 {% endblock %}

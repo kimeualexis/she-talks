@@ -16,13 +16,13 @@ class IssueListView(LoginRequiredMixin, ListView):
 
 class UserIssueListView(ListView):
 	model = Issue
-	template_name = 'girlapp/user_questions.html'
+	template_name = 'girlapp/user_issues.html'
 	context_object_name = 'issues'
 	paginate_by = 7
 
 	def get_queryset(self):
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
-		return Issue.objects.filter(author=user).order_by('-created')
+		return Issue.objects.filter(user=user).order_by('-created')
 
 
 class IssueDetailView(DetailView):
@@ -59,8 +59,8 @@ class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	success_url = '/home'
 
 	def test_func(self):
-		post = self.get_object()
-		if self.request.user == post.author:
+		issue = self.get_object()
+		if self.request.user == issue.user:
 			return True
 		return False
 
