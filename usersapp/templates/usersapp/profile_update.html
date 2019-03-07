@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'girlapp/base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="row">
+<div class="col-sm-4">
 
-</body>
-</html>
+</div>
+<div class="col-sm-4">
+<div class="content-section">
+  <!-- FORM HERE -->
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom text-primary">Update Profile</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-info">Update</button>
+    </div>
+</form>
+
+</div>
+    </div>
+    </div>
+{% endblock %}

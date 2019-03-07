@@ -7,7 +7,7 @@
     <div class="col-sm-12 content-section">
     {% for issue in issues %}
         <article class="media content-section">
-        <img class="rounded-circle article-img" src="" alt="">
+        <img class="rounded-circle article-img" src="{{ issue.user.profile.image.url }}" alt="">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'girlapp:user-issues' issue.user.username %}">{{ issue.user }}</a>

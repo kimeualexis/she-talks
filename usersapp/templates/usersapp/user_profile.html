@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'girlapp/base.html' %}
+{% load crispy_forms_tags %}
 
-</body>
-</html>
+{% block title %}<title>{{ user.username }}</title>{% endblock %}
+
+{% block body %}
+<div class="row">
+<div class="col-sm-3">
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="">
+    <div class="media-body">
+      <h3 class="account-heading">{{ user.username }}</h3>
+      <p class="text-secondary">{{ user.email }}</p>
+      <p class="text-secondary">{{ user.profile.bio }}</p>
+    </div>
+  </div>
+
+        <a href="{% url 'update-profile' %}" class="btn btn-outline-info">Update</a>
+
+
+</div>
+    </div>
+
+<div class="col-sm-9">
+{% if issues %}
+    {% for issue in issues %}
+        <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ issue.user.profile.image.url }}" alt="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{% url 'girlapp:user-issues' issue.user.username %}">{{ issue.user }}</a>
+              <small class="text-muted">{{ issue.created|date:"F d, Y" }}</small>
+            </div>
+            <h5><a class="article-title" href="{% url 'girlapp:issue-detail' issue.id %}"> {{ issue.title }}</a></h5>
+          </div>
+        </article>
+
+    {% endfor %}
+{% endif %}
+</div>
+</div>
+{% endblock %}

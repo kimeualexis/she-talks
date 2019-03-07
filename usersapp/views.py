@@ -44,6 +44,7 @@ def profile_update(request):
 
 @login_required
 def user_profile(request):
+
     prof = Profile.objects.get(user=request.user)
     issues = Issue.objects.filter(user=request.user)
     return render(request, 'usersapp/user_profile.html', {'prof': prof, 'issues': issues})
