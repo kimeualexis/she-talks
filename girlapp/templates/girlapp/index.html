@@ -3,8 +3,10 @@
 {% block title %}<title>SheTalks</title>{% endblock %}
 
 {% block body %}
+<div class="row">
+    <div class="col-sm-2"></div>
 {% if issues %}
-    <div class="col-sm-12 content-section">
+    <div class="col-sm-8 content-section">
     {% for issue in issues %}
         <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ issue.user.profile.image.url }}" alt="">
@@ -42,5 +44,7 @@
  <div class="alert alert-info"><h4 class="text text-center">No Issues:</h4></div>
 {% endif %}
 </div>
+</div>
+
 
 {% endblock %}
